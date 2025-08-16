@@ -10,6 +10,7 @@ import Grid from "@mui/material/Grid";
 import Email from "./email";
 import { stringAvatar } from "@/utils/string";
 import Box from "@mui/material/Box";
+import { API_BASE_URL } from "@/utils/consts";
 
 export default function Emails() {
   const [emails, setEmails] = useState<EmailInterface[]>([]);
@@ -30,7 +31,7 @@ export default function Emails() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:3001/emails")
+    fetch(`${API_BASE_URL}/emails`)
       .then((res) => res.json())
       .then((data) => setEmails(data))
       .catch((error) => setError(error.message));

@@ -3,6 +3,7 @@ import { useState, useCallback } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import AiPromptModal from "./modal";
+import { API_BASE_URL } from "@/utils/consts";
 
 type Inputs = {
   to: string;
@@ -41,7 +42,7 @@ export default function NewEmail() {
 
   const onSubmit: SubmitHandler<Inputs> = useCallback(
     (data) => {
-      fetch("http://localhost:3001/emails/send", {
+      fetch(`http://localhost:3001/emails/send`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -54,10 +55,9 @@ export default function NewEmail() {
               reject(new Error("Failed to send email"));
             });
           }
-          const result: { id: number } = await res.json();
+
           alert("Email sent successfully!");
-          //
-          router.push(`/#${result.id}`);
+          router.push(`/`);
         })
         .catch((err) => {
           console.error("Error:", err);

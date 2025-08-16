@@ -10,6 +10,7 @@ import {
 import { useState } from "react";
 import { experimental_useObject as useObject } from "@ai-sdk/react";
 import { emailTemplateSchema } from "@/pages/api/schema";
+import { API_BASE_URL } from "@/utils/consts";
 
 export default function AiPromptModal({
   opened,
@@ -28,8 +29,7 @@ export default function AiPromptModal({
     stop,
     isLoading: isLoadingObject,
   } = useObject({
-    // api: "/api/classify",
-    api: "http://localhost:3001/emails/suggestions",
+    api: `${API_BASE_URL}/emails/suggestions`,
     schema: emailTemplateSchema,
     onFinish: ({ object, error }) => {
       if (object) {

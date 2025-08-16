@@ -11,6 +11,7 @@ import {
   Divider,
 } from "@mui/material";
 import { htmlEscape, stringAvatar } from "@/utils/string";
+import { API_BASE_URL } from "@/utils/consts";
 
 export default function Email({
   emailId,
@@ -27,7 +28,7 @@ export default function Email({
 
   const deleteEmail = async () => {
     try {
-      const res = await fetch(`http://localhost:3001/emails/${emailId}`, {
+      const res = await fetch(`${API_BASE_URL}/emails/${emailId}`, {
         method: "DELETE",
       });
       if (!res.ok) {
@@ -50,7 +51,7 @@ export default function Email({
     async function loadEmail() {
       try {
         setLoading(true);
-        const res = await fetch(`http://localhost:3001/emails/${emailId}`);
+        const res = await fetch(`${API_BASE_URL}/emails/${emailId}`);
         if (!res.ok) {
           throw new Error("Failed to load email");
         }
