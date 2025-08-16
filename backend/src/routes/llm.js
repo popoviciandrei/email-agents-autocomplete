@@ -37,12 +37,12 @@ export default async function llmRoutes(fastify, options) {
         schema: emailTemplateSchema,
         system: {
           sales:
-            "Generates sales emails, tailored to the recipient business description." +
+            "Generates sales emails, tailored as per user prompt description." +
             "(Keep the email under 40 words total. So it can be read under 10 seconds," +
             "max 7-10 words/sentence). Subject must contain word 'sales' always." +
             "Respond with subject, body and classification.",
           followup:
-            "Generate one polite follow-up emails (e.g., “just checking in)." +
+            "Generate one polite follow-up emails (e.g., “just checking in), tailored as per user prompt description." +
             "Subject must contain word 'followup' always." +
             "Respond with subject, body and classification. ",
         }[classification.type],
