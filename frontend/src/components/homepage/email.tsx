@@ -15,13 +15,32 @@ import { htmlEscape, stringAvatar } from "@/utils/string";
 export default function Email({
   emailId,
   clearActiveEmailId,
+  handleEmailDeleted,
 }: {
   emailId: number;
   clearActiveEmailId: () => void;
+  handleEmailDeleted: () => void;
 }) {
   const [email, setEmail] = useState<EmailInterface | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+
+  const deleteEmail = async () => {
+    try {
+      const res = await fetch(`http://localhost:3001/emails/${emailId}`, {
+        method: "DELETE",
+      });
+      if (!res.ok) {
+        throw new Error("Failed to delete email");
+      }
+      handleEmailDeleted();
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+      clearActiveEmailId();
+    }
+  };
 
   useEffect(() => {
     if (!emailId) {
@@ -96,9 +115,21 @@ export default function Email({
         </ListItem>
       )}
       {!email && <Typography variant="body1">No email found</Typography>}
-      <Button onClick={clearActiveEmailId} variant="contained">
-        Back
-      </Button>
+      <Box sx={{ display: "flex", gap: 1, justifyContent: "flex-start" }}>
+        <Button onClick={clearActiveEmailId} variant="contained">
+          Back
+        </Button>
+        <Button
+          onClick={() => {
+            if (window.confirm("Are you sure you want to delete this email?")) {
+              deleteEmail();
+            }
+          }}
+          color="error"
+        >
+          Delete
+        </Button>
+      </Box>
     </>
   );
 }

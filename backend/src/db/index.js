@@ -20,6 +20,10 @@ class DB {
   static async getEmail(id) {
     return await knexInstance("emails").where("id", id).limit(1);
   }
+
+  static async deleteEmail(id) {
+    return knexInstance("emails").where("id", id).del();
+  }
 }
 
 export default DB;

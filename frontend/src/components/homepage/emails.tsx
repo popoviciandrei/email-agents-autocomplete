@@ -15,6 +15,8 @@ export default function Emails() {
   const [emails, setEmails] = useState<EmailInterface[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [activeEmailId, setActiveEmailId] = useState<number | null>(null);
+  // Add a state to trigger refetches
+  const [refresh, setRefresh] = useState(0);
 
   useEffect(() => {
     // Check if there's a hash in the URL (e.g., #5)
@@ -32,7 +34,14 @@ export default function Emails() {
       .then((res) => res.json())
       .then((data) => setEmails(data))
       .catch((error) => setError(error.message));
-  }, []);
+  }, [refresh]);
+
+  // Provide a function to trigger a refetch, pass it to Email component
+  const handleEmailDeleted = () => {
+    setRefresh((r) => r + 1);
+    setActiveEmailId(null);
+    window.location.hash = "";
+  };
 
   return (
     <div>
@@ -109,6 +118,7 @@ export default function Emails() {
               <Email
                 emailId={activeEmailId}
                 clearActiveEmailId={() => setActiveEmailId(null)}
+                handleEmailDeleted={handleEmailDeleted}
               />
             </Box>
           </Grid>

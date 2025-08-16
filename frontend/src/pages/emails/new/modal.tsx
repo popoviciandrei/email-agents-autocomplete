@@ -65,7 +65,15 @@ export default function AiPromptModal({
           fullWidth
           variant="standard"
           value={description}
+          disabled={isLoadingObject}
           onChange={(e) => setDescription(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && description.length > 0) {
+              submit({
+                description,
+              });
+            }
+          }}
         />
       </DialogContent>
       <DialogActions>

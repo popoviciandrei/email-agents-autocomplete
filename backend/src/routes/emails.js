@@ -26,6 +26,17 @@ export default async function emailRoutes(fastify, options) {
     }
   });
 
+  fastify.delete("/emails/:id", async (request, reply) => {
+    try {
+      const { id } = request.params;
+      await DB.deleteEmail(id);
+      reply.code(200).send({ message: "Email deleted" });
+    } catch (error) {
+      console.error(error);
+      reply.code(500).send({ error: error.message });
+    }
+  });
+
   fastify.post("/emails/send", async (request, reply) => {
     try {
       const { to, cc, bcc, subject, body } = request.body;
