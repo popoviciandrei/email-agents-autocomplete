@@ -92,11 +92,11 @@ export default function Emails() {
               </Typography>
             )}
             {emails.length === 0 && !error && (
-              <Typography variant="body1">No emails found</Typography>
+              <Typography variant="body1">No emails yet</Typography>
             )}
           </List>
         </Grid>
-        {activeEmailId && (
+        {emails.length > 0 && activeEmailId && (
           <Grid size={{ xs: 6, md: 8 }} key={activeEmailId}>
             <Box
               sx={{
