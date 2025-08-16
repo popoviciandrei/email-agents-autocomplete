@@ -1,5 +1,4 @@
 import Avatar from "@mui/material/Avatar";
-import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
@@ -10,6 +9,7 @@ import { Email as EmailInterface } from "@/pages/api/types";
 import Grid from "@mui/material/Grid";
 import Email from "./email";
 import { stringAvatar } from "@/utils/string";
+import Box from "@mui/material/Box";
 
 export default function Emails() {
   const [emails, setEmails] = useState<EmailInterface[]>([]);
@@ -40,11 +40,13 @@ export default function Emails() {
         Emails
       </Typography>
       <Grid container spacing={2}>
-        <Grid size={6} key={crypto.randomUUID()}>
+        <Grid
+          size={activeEmailId ? { xs: 6, md: 4 } : { xs: 12, md: 4 }}
+          key={crypto.randomUUID()}
+        >
           <List
             sx={{
               width: "100%",
-              maxWidth: 360,
               bgcolor: "background.paper",
               overflowY: "auto",
               maxHeight: "calc(100vh - 100px)",
@@ -94,14 +96,23 @@ export default function Emails() {
             )}
           </List>
         </Grid>
-        <Grid size={6} key={activeEmailId}>
-          {activeEmailId && (
-            <Email
-              emailId={activeEmailId}
-              clearActiveEmailId={() => setActiveEmailId(null)}
-            />
-          )}
-        </Grid>
+        {activeEmailId && (
+          <Grid size={{ xs: 6, md: 8 }} key={activeEmailId}>
+            <Box
+              sx={{
+                width: "100%",
+                bgcolor: "background.paper",
+                overflowY: "auto",
+                maxHeight: "calc(100vh - 100px)",
+              }}
+            >
+              <Email
+                emailId={activeEmailId}
+                clearActiveEmailId={() => setActiveEmailId(null)}
+              />
+            </Box>
+          </Grid>
+        )}
       </Grid>
     </div>
   );

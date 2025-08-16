@@ -2,6 +2,9 @@
     --sidebar-width: 150px;
 }
 
+html {
+    overflow-y: hidden;
+}
 .sidebar {
     display: flex;
     flex-direction: column;
