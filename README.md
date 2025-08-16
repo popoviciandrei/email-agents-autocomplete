@@ -54,9 +54,10 @@ This is a monorepo. It has two folders:
 2. `yarn install` - Install the dependencies
 3. `yarn dev` - Start the development server (http://localhost:3000)
 4. `cd ../backend` - Go to the backend folder
-5. `yarn install` - Install the dependencies
-6. `yarn migrate` - Run the knex db migrations
-7. `yarn dev` - Start the development server (http://localhost:3001)
+5. `echo "OPENAI_API_KEY=<openAPIkey" > .env` - Add the OpenApi key used by Backend
+6. `yarn install` - Install the dependencies
+7. `yarn migrate` - Run the knex db migrations
+8. `yarn dev` - Start the development server (http://localhost:3001)
 
 # Design
 1. [MUI](https://mui.com/) is installed and used for the design of the frontend.
