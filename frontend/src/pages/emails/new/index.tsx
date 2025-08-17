@@ -2,7 +2,7 @@ import { Button, Grid, TextField } from "@mui/material";
 import { useState, useCallback } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/router";
-import AiPromptModal from "./modal";
+import AiPromptModal from "../../../components/emails/modal";
 import { API_BASE_URL } from "@/utils/consts";
 
 type Inputs = {
@@ -42,7 +42,7 @@ export default function NewEmail() {
 
   const onSubmit: SubmitHandler<Inputs> = useCallback(
     (data) => {
-      fetch(`http://localhost:3001/emails/send`, {
+      fetch(`${API_BASE_URL}/emails/send`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
