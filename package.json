@@ -1,0 +1,11 @@
+{
+  "name": "email-agents-autocomplete",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "concurrently \"yarn --cwd backend dev\" \"yarn --cwd frontend dev\""
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0"
+  }
+}
